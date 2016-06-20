@@ -1,5 +1,14 @@
+$('input').bind("enterKey", function(e) {
+  $('#getNumbers').click();
+});
+$('input').keyup(function(e) {
+  if (e.keyCode == 13) {
+    $(this).trigger("enterKey");
+  }
+});
+
 $('#getNumbers').click(function() {
-  $('#middle').html('<img src="style/img/loader.svg">');
+  $('#middle').html('<img src="style/img/loader.svg">' + '<p class="movie_number">0%</p>');
   //let patt = /viaplay.se\/\w+\/[\w-]+/i;
   let patt = /viaplay.[sfdn][eoki]\/\w+\/[\w-]+/i;
   let match = $('#link').val().match(patt);
@@ -11,7 +20,6 @@ $('#getNumbers').click(function() {
     let getHTTP = 'https://content.viaplay.' + domain + '/pcdash-' + domain + link;
 
     $.get(getHTTP, function(data, status) {
-      console.log(status);
       if (status != 'success') $('#middle').html('');
       // detect if movie or series
       if (data['_embedded']['viaplay:blocks']['0']['type'] == 'product') {
@@ -24,10 +32,16 @@ $('#getNumbers').click(function() {
         
         let season_num = data['_embedded']['viaplay:blocks'].length - 2;
         let season_arr = [];
+        let avail_seasons = [];
         let count = 0;
-        for (let num = 1; num <= season_num; num++) {
 
-          let URL = getHTTP + '?seasonNumber=' + num;
+        for (let j = 1; j <= season_num; j++) {
+          avail_seasons.push(data['_embedded']['viaplay:blocks'][j]['title']);
+        }
+
+        for (let num = 0; num < season_num; num++) {
+
+          let URL = getHTTP + '?seasonNumber=' + avail_seasons[num];
           $.get(URL, function(data) {
             let blocks = data['_embedded']['viaplay:blocks'][1]['_embedded']['viaplay:products'];
             let content_numbers = '';
@@ -38,10 +52,10 @@ $('#getNumbers').click(function() {
               content_numbers += blocks[key].system.guid + '<br>';
               i++;
             }
-            let title = '<div class="season-num">Season ' + num + '</div>';
+            let title = '<div class="season-num">Season ' + avail_seasons[num] + '</div>';
             episodes = '<div class="episodes">' + episodes + '</div>';
             content_numbers = '<div class="numbers">' + content_numbers + '</div>';
-            season_arr[num - 1] = '<div class="season">' + title + episodes + content_numbers + '</div>';
+            season_arr[num] = '<div class="season">' + title + episodes + content_numbers + '</div>';
             count++;
             $('#middle').html('<img src="style/img/loader.svg">' + '<p class="movie_number">' + Math.round((count/season_num) * 100) + '%</p>');
             if (count == season_num) $('#middle').html(season_arr.join(''));
