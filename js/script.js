@@ -58,7 +58,12 @@ $('#getNumbers').click(function() {
             season_arr[num] = '<div class="season">' + title + episodes + content_numbers + '</div>';
             count++;
             $('#middle').html('<img src="style/img/loader.svg">' + '<p class="movie_number">' + Math.round((count/season_num) * 100) + '%</p>');
-            if (count == season_num) $('#middle').html(season_arr.join(''));
+            if (count == season_num) {
+              $('#middle').html(season_arr.join(''));
+              $('html, body').animate({
+                scrollTop: $("#middle").offset().top
+              }, 280);
+            }
           });
 
         }
