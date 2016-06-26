@@ -48,8 +48,8 @@ $('#getNumbers').click(function() {
             let episodes = '';
             let i = 1;
             for (let key in blocks) {
-              episodes += 'Episode ' + i + ':<br>';
-              content_numbers += blocks[key].system.guid + '<br>';
+              episodes += '<span class="episode-box">Episode ' + i + ':</span>';
+              content_numbers += '<textarea class="select-box" onclick="this.select()">' + blocks[key].system.guid + '</textarea>';
               i++;
             }
             let title = '<div class="season-num">Season ' + avail_seasons[num] + '</div>';
@@ -73,3 +73,21 @@ $('#getNumbers').click(function() {
     });
   } else $('#middle').html("<p class='movie_number'>Invalid link</p>");
 });
+
+function SelectText(element) {
+    var doc = document,
+        text = doc.getElementById(element),
+        range,
+        selection;
+    if (doc.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+    } else if (window.getSelection) {
+        selection = window.getSelection();        
+        range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+}
