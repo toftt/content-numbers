@@ -27,7 +27,7 @@ $('#getNumbers').click(function() {
         let guid = data['_embedded']['viaplay:blocks'][0]['_embedded']['viaplay:product']['system']['guid'];
 
         $('#middle').html("<p class='movie_number'>" + guid + '</p>');
-
+        $('.movie_number').OneClickSelect();
       } else {
         
         let season_num = data['_embedded']['viaplay:blocks'].length - 2;
@@ -48,8 +48,8 @@ $('#getNumbers').click(function() {
             let episodes = '';
             let i = 1;
             for (let key in blocks) {
-              episodes += '<span class="episode-box">Episode ' + i + ':</span>';
-              content_numbers += '<textarea class="select-box" onclick="this.select()">' + blocks[key].system.guid + '</textarea>';
+              episodes += '<span class="boxie">Episode ' + i + ':</span>';
+              content_numbers += '<span class="num-boxie">' + blocks[key].system.guid + '</span>';
               i++;
             }
             let title = '<div class="season-num">Season ' + avail_seasons[num] + '</div>';
@@ -63,6 +63,7 @@ $('#getNumbers').click(function() {
               $('html, body').animate({
                 scrollTop: $("#middle").offset().top
               }, 280);
+              $('.num-boxie').OneClickSelect();
             }
           });
 
@@ -74,20 +75,20 @@ $('#getNumbers').click(function() {
   } else $('#middle').html("<p class='movie_number'>Invalid link</p>");
 });
 
-function SelectText(element) {
-    var doc = document,
-        text = doc.getElementById(element),
-        range,
-        selection;
-    if (doc.body.createTextRange) {
-        range = document.body.createTextRange();
-        range.moveToElementText(text);
-        range.select();
-    } else if (window.getSelection) {
+$.fn.OneClickSelect = function(){
+  return $(this).on('click',function(){
+    
+     var range, selection;
+     if (window.getSelection) {
         selection = window.getSelection();        
         range = document.createRange();
-        range.selectNodeContents(text);
+        range.selectNodeContents(this);
         selection.removeAllRanges();
         selection.addRange(range);
+    } else if (document.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText(this);
+        range.select();
     }
-}
+  });
+};

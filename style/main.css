@@ -137,3 +137,11 @@ input:focus {
   height: 19.1px;
   overflow: hidden;
 }
+
+.boxie {
+  display: block;
+}
+
+.num-boxie {
+  display: block;
+}
