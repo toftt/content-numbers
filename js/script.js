@@ -7,6 +7,7 @@ $('input').keyup(function(e) {
   }
 });
 
+$('#getNumbers').OneClickSelect();
 $('#getNumbers').click(function() {
   $('#middle').html('<img src="style/img/loader.svg">' + '<p class="movie_number">0%</p>');
   //let patt = /viaplay.se\/\w+\/[\w-]+/i;
