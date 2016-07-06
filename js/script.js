@@ -10,7 +10,7 @@ $('input').keyup(function(e) {
 $('#getNumbers').click(function() {
   $('#middle').html('<img src="style/img/loader.svg">' + '<p class="movie_number">0%</p>');
   //let patt = /viaplay.se\/\w+\/[\w-]+/i;
-  let patt = /viaplay.[sfdn][eoki]\/\w+\/[\w-]+/i;
+  let patt = /viaplay.[sfdn][eoki]\/\w+\/[\w-.]+/i;
   let match = $('#link').val().match(patt);
 
   if (match) {
