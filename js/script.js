@@ -49,7 +49,7 @@ $('#getNumbers').click(function() {
             let i = 1;
             for (let key in blocks) {
               episodes += '<span class="boxie">Episode ' + i + ':</span>';
-              content_numbers += '<span class="num-boxie">' + blocks[key].system.guid + '</span>';
+              content_numbers += '<span class="num-boxie">' + blocks[key].system.guid + '</span><br>';
               i++;
             }
             let title = '<div class="season-num">Season ' + avail_seasons[num] + '</div>';
