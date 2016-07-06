@@ -9,6 +9,10 @@ body {
   color: #c0c1c4;
 }
 
+br {
+  display: none;
+}
+
 button:hover {
   background-color: white;
   color: black;
