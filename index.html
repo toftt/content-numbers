@@ -8,20 +8,42 @@
 </head>
 <body>
   <div id='top'>
-    <span class='credits'>Hosted on <a href='https://github.com/toftt/'>Github</a></span>
+    <span class='credits'>Made by Joachim Toft<br>Hosted on <a href='https://github.com/toftt/'>Github</a></span>
   </div>
   <div id='stuff'>
-    <div class='intro'>
-      <h1>
+
+    <button class="button active" id="c_button">COPY AND PASTE</button>
+    <button class="button" id="s_button">SEARCH</button>
+    <div id='search'>
+      <div class='intro'>
+        <h1>
+        Search for a movie or series on Viaplay and choose a result
+        </h1>
+        <h2>
+    (ex. vänner)
+    </h2>
+      </div>
+      <div class='input_holder'>
+        <div class='result_holder'>
+          <div id="results">
+          </div>
+        </div>
+        <input type='text' id='search_field' autofocus='autofocus'>
+      </div>
+    </div>
+    <div id='copy_paste'>
+      <div class='intro'>
+        <h1>
     Enter the link to a TV show or movie on Viaplay
     </h1>
-      <h2>
+        <h2>
     (ex. http://viaplay.se/serier/vanner)
     </h2>
-    </div>
-    <div id='input_holder'>
-      <input type='text' id='link' autofocus='autofocus'>
-      <button id='getNumbers'>FETCH CONTENT NUMBER(S)</button>
+      </div>
+      <div class='input_holder'>
+        <input type='text' id='link' autofocus='autofocus'>
+        <button id='getNumbers'>FETCH CONTENT NUMBER(S)</button>
+      </div>
     </div>
   </div>
   <div id='middle'>
