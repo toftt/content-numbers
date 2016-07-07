@@ -18,13 +18,15 @@ $('.domain').click(function() {
 });
 
 $('.button').click(function() {
-  $('.button').toggleClass('active');
-  if ($('#c_button').hasClass('active')) {
-    $('#copy_paste').show();
-    $('#search').hide();
-  } else {
-    $('#search').show();
-    $('#copy_paste').hide();
+  if (!$(this).hasClass('active')) {
+    $('.button').toggleClass('active');
+    if ($('#c_button').hasClass('active')) {
+      $('#copy_paste').show();
+      $('#search').hide();
+    } else {
+      $('#search').show();
+      $('#copy_paste').hide();
+    }
   }
 });
 
