@@ -10,6 +10,13 @@ $('input').keyup(function(e) {
   }
 });
 
+$('.domain').click(function() {
+	if (!$(this).hasClass('chosen')) {
+  	$('.domain').removeClass('chosen');
+  	$(this).addClass('chosen');
+  }
+});
+
 $('.button').click(function() {
   $('.button').toggleClass('active');
   if ($('#c_button').hasClass('active')) {
@@ -95,6 +102,7 @@ function getNumbers(link) {
 }
 
 function searchContent() {
+  domain = $('.chosen').attr("dom");
   if ($('#search_field').val() === '') $('#results').html('');
   if ($('#search_field').val() !== last_value && $('#search_field').val() !== '') {
     $('#results').html('');
