@@ -61,11 +61,11 @@ button {
 }
 
 #search {
-  display: none;
+  display: block;
 }
 
 #copy_paste {
-  display: block;
+  display: none;
 }
 
 .button,
