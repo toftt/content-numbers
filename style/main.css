@@ -32,6 +32,53 @@ button {
   margin-top: 15px;
 }
 
+#results {
+  background-color: #f9f9fb;
+  position: relative;
+  top: 40px;
+  text-align: left;
+}
+
+.result_holder {
+  position: absolute;
+  align-items: center;
+}
+
+.link {
+  padding: 20px 10px;
+  font-size: 18px;
+  height: 100%;
+  color: black;
+}
+
+.link:hover {
+  background-color: #e4e4e4;
+  cursor: pointer;
+}
+
+#search {
+  display: none;
+}
+
+#copy_paste {
+  display: block;
+}
+
+.button,
+.button-active {
+  width: 35%;
+  margin-bottom: 25px;
+}
+
+.active {
+  background-color: white;
+  color: black;
+}
+
+.active:hover {
+  cursor: default;
+}
+
 .intro {
   margin-bottom: 20px;
   color: white;
@@ -67,9 +114,10 @@ button {
   text-align: center;
 }
 
-#input_holder {
+.input_holder {
   display: inline-block;
   width: 40%;
+  text-align: center;
 }
 
 .season {
@@ -99,6 +147,7 @@ button {
 #middle {
   margin-top: 30px;
   text-align: center;
+  min-height: 500px;
 }
 
 .movie_number {
