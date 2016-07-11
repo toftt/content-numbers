@@ -55,8 +55,11 @@ button {
   color: black;
 }
 
-.link:hover {
+.link-a {
   background-color: #e4e4e4;
+}
+
+.link:hover {
   cursor: pointer;
 }
 
