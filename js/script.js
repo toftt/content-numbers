@@ -31,7 +31,7 @@ $('html').keyup(function(e) {
       selectNext(-1);
     }
     
-    if (e.keyCode == 13) {
+    if (e.keyCode == 13 && selected > -1 && selected < no_of_links) {
     	getNumbers($('.link-a').attr('link'));
     }
   }
