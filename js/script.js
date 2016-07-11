@@ -65,18 +65,25 @@ $('#search_field').keyup(searchContent);
 function selectNext(dir) {
 	if (results_up) {
   	if (selected === -1 && dir === 1) {
+    	$('input').blur();
     	selected = 0;
       $('.link').eq(selected).addClass('link-a');
     } else if (selected + dir >= 0 && selected + dir < no_of_links){
     	selected += dir;
       $('.link').removeClass('link-a');
       $('.link').eq(selected).addClass('link-a');
+    } else if(selected === 0 && dir === -1) {
+    	$('#search_field').focus();
+      selected = -1;
+      $('.link').removeClass('link-a');
     }
   }
 }
 
 function getNumbers(link) {
 	$('#results').html('');
+  $('#search_field').val('');
+  $('#search_field').focus();
   selected = -1;
   no_of_links = 0;
   $('#middle').html('<img src="style/img/loader.svg">' + '<p class="movie_number">0%</p>');
