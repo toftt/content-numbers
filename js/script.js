@@ -1,19 +1,46 @@
 var last_value = '';
 var domain = 'se';
+var selected = -1;
+var results_up = true;
+var no_of_links = 0;
+
+$(document).click(function(event) { 
+    if(!$(event.target).closest('#results').length) {
+        if($('#results').is(":visible")) {
+            $('#results').html('');
+        }
+    }
+});
 
 $('#link').bind("enterKey", function(e) {
   $('#getNumbers').click();
 });
+
 $('input').keyup(function(e) {
   if (e.keyCode == 13) {
     $(this).trigger("enterKey");
   }
 });
 
+$('html').keyup(function(e) {
+	if ($('.link').length > 0) {
+    if (e.keyCode == 40) {
+      selectNext(1);
+    }
+    if (e.keyCode == 38) {
+      selectNext(-1);
+    }
+    
+    if (e.keyCode == 13) {
+    	getNumbers($('.link-a').attr('link'));
+    }
+  }
+});
+
 $('.domain').click(function() {
-	if (!$(this).hasClass('chosen')) {
-  	$('.domain').removeClass('chosen');
-  	$(this).addClass('chosen');
+  if (!$(this).hasClass('chosen')) {
+    $('.domain').removeClass('chosen');
+    $(this).addClass('chosen');
   }
 });
 
@@ -35,9 +62,24 @@ $('#getNumbers').click(function() {
 });
 $('#search_field').keyup(searchContent);
 
+function selectNext(dir) {
+	if (results_up) {
+  	if (selected === -1 && dir === 1) {
+    	selected = 0;
+      $('.link').eq(selected).addClass('link-a');
+    } else if (selected + dir >= 0 && selected + dir < no_of_links){
+    	selected += dir;
+      $('.link').removeClass('link-a');
+      $('.link').eq(selected).addClass('link-a');
+    }
+  }
+}
+
 function getNumbers(link) {
+	$('#results').html('');
+  selected = -1;
+  no_of_links = 0;
   $('#middle').html('<img src="style/img/loader.svg">' + '<p class="movie_number">0%</p>');
-  //let patt = /viaplay.se\/\w+\/[\w-]+/i;
   let patt = /viaplay.[sfdn][eoki]\/\w+\/[\w-\.]+/i;
   let match = link.match(patt);
 
@@ -109,9 +151,7 @@ function searchContent() {
   if ($('#search_field').val() !== last_value && $('#search_field').val() !== '') {
     $('#results').html('');
     var URL = 'https://content.viaplay.' + domain + '/pcdash-' + domain + '/autocomplete?query=' + $('#search_field').val();
-    console.log(URL);
     $.get(URL, function(data) {
-      console.log(data);
       if ('_embedded' in data['_embedded']['viaplay:blocks'][0]) {
         $('#results').html('');
         var results = data['_embedded']['viaplay:blocks'][0]['_embedded']['viaplay:products'];
@@ -119,21 +159,24 @@ function searchContent() {
           var title = '';
           if (result.type === 'movie') {
             title = result.content.title;
-            var end = result.system.availability.end;
           } else if (result.type === 'series') title = result.content.series.title;
           var year = result.content.production.year;
           var path = result._links.self.href;
           path = path.replace('https://content.viaplay.' + domain + '/pcdash-' + domain, '');
           path = 'http://viaplay.' + domain + path.replace('?partial=true&block=1', '');
-          console.log(path);
           $('#results').append('<div class="link" link="' + path + '">' + title + ' (' + year + ')</div>');
           if ($('#search_field').val() === '') $('#results').html('');
         }
         $('.link').click(function() {
           $('#results').html('')
-          console.log(this);
           getNumbers($(this).attr('link'));
         });
+        $('.link').hover(function() {
+        	$('.link').removeClass('link-a');
+          selected = $('.link').index(this);
+        	$(this).toggleClass('link-a');
+        });
+        no_of_links = $('.link').length;
       }
     });
   }
