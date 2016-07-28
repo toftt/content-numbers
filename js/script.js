@@ -12,6 +12,12 @@ $(document).click(function(event) {
     }
 });
 
+$(document).keydown(function(e) {
+    if ((e.keyCode === 40 || e.keyCode === 38) && $('#results').html() !== '') {
+      e.preventDefault();
+    }
+});
+
 $('#link').bind("enterKey", function(e) {
   $('#getNumbers').click();
 });
