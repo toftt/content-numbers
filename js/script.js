@@ -153,6 +153,7 @@ function getNumbers(link) {
 }
 
 function searchContent() {
+  selected = -1;
   domain = $('.chosen').attr("dom");
   if ($('#search_field').val() === '') $('#results').html('');
   if ($('#search_field').val() !== last_value && $('#search_field').val() !== '') {
